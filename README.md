@@ -30,3 +30,8 @@ Richardson Maturity Model
 	Uma API para então atingir esse nível e realmente ser considerada RESTful ela precisa possuir e implementar de hipermídias que são os RATEOS que são essas hipermídias né são links é de navegação onde a gente mostra a possibilidade de caminhos para demais recursos dentro da apei então se vocês olharem aqui neste get users na hora que eu solicitei essa listagem né de usuários para o servidor ele me retornou tanto os Campos deste recurso e ele também me retornou esses Campos aqui Lins e vocês podem ver que por exemplo para cada usuário ele me traz um link especifico então os detalhes de cada um desses recursos então dessa forma essa p ela pode sim ser considerada RESTful porque ela tem a atingiu todos esses pilares.
 	
 Então é muito importante a gente construir a API dentro desses padrões para que seja fácil tanto na hora de desenvolver manter ali um padrão de desenvolvimento e principalmente na hora que a gente for consumir essa API seja o microservice ou seja um cliente terceiro.
+
+
+###Comentários sobre o arquivo yaml
+![image](https://user-images.githubusercontent.com/88847876/194378181-49c1d9cd-1545-41a9-beaf-fe983688e472.png)
+
