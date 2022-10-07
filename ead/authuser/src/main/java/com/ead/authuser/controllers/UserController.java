@@ -28,7 +28,7 @@ public class UserController {
     public ResponseEntity<Object> getOneUser(@PathVariable(value = "userId")UUID userId){
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (!userModelOptional.isPresent()){ //se o objeto não tiver presente, ou seja, se ele vier vazio
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(userModelOptional.get());
         }
@@ -38,12 +38,13 @@ public class UserController {
     public ResponseEntity<Object> deleteUser (@PathVariable (value = "userId") UUID userId){
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if(!userModelOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         } else {
             userService.delete(userModelOptional.get());
-            return ResponseEntity.status(HttpStatus.OK).body("User deleted success");
+            return ResponseEntity.status(HttpStatus.OK).body("User deleted successfully.");
         }
     }
+
 
 
 
