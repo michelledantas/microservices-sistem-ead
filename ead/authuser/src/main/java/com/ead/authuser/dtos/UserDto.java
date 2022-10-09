@@ -1,5 +1,6 @@
 package com.ead.authuser.dtos;
 
+import com.ead.authuser.validation.CpfConstraint;
 import com.ead.authuser.validation.UsernameConstraint;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -54,6 +55,8 @@ public class UserDto {
     @JsonView({UserView.RegistrationPost.class, UserView.UserPut.class})
     private String phoneNumber;
 
+    @CpfConstraint(groups = {UserView.RegistrationPost.class, UserView.UserPut.class})
+    @Size(min=11, max=11, groups = {UserView.RegistrationPost.class, UserView.UserPut.class})
     @JsonView({UserView.RegistrationPost.class, UserView.UserPut.class})
     private String cpf;
 
