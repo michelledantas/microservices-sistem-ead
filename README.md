@@ -1,20 +1,20 @@
 # microservices-sistem-ead
-Desenvolvimento de microservices sistema ead, realizado durante o curso da Micheli Brito no projeto Decoder
+Desenvolvimento de microservices do sistema ead, realizado durante o curso da Micheli Brito no projeto Decoder
 
 
 
-# API
+## API
 Uma API e nada mais é do que uma aplicação cliente servidor que é utilizada então pra comunicar serviços, pra garantir a interoperabilidade em esses serviços.
 
 Vamos utilizar isso muito aqui nessa plataforma EAD do projeto decoder porque vamos precisar fazer a comunicação síncrona entre determinados serviços vamos precisar criar essas apps 
 
-# REST
+## REST
 REST é o modelo arquitetural, é um conjunto de padrões que trazem então boas práticas para o desenvolvimento dessas desenvolvimento dessas API's, então é muito importante utilizar esses padrões de boas práticas tanto no desenvolvimento e também para facilitar os clientes ou os serviços que vão utilizar e vão consumir essas API's
 
-# RESTFULL
+## RESTFULL
 RESTFULL na verdade a implementação deste modelo arquitetural REST na prática enquanto que REST é algo abstrato RESTFUL é um padrão que vem como algo concreto é a como se fosse a implementação do modelo arquitetural REST em alguma API então por isso que a gente diz que mapeie ela é considerada RESTful quando ela tem implementada né quando ela possui a implementação deste conjunto de boas práticas leste 
 
-# COMO IDENTIFICAR SE UMA API É RESTFULL OU NÃO?
+## COMO IDENTIFICAR SE UMA API É RESTFULL OU NÃO?
 Richardson Maturity Model
 
 	 • Level Zero Services
