@@ -1,5 +1,6 @@
 package com.ead.authuser.dtos;
 
+import com.ead.authuser.validation.UsernameConstraint;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
@@ -27,22 +28,23 @@ public class UserDto {
     //dentro de groups, colocamos em quais visões do Json view que iremos fazer as validações
     @NotBlank(groups = UserView.RegistrationPost.class) //não permite valores nulos e tbm não permite valores vazios
     //essa anotação serve para informar qual tipo de visão terá o atributo
-    @Size(min=4, max=50) //validação com relação ao tamanho de caracteres
+    @Size(min=4, max=50, groups = UserView.RegistrationPost.class) //validação com relação ao tamanho de caracteres
+    @UsernameConstraint(groups = UserView.RegistrationPost.class)
     @JsonView(UserView.RegistrationPost.class) // neste caso esse campo não pode ser alterado, por isso a visão fica disponível apenas no momento do cadastro
     private String username;
 
     @NotBlank(groups = UserView.RegistrationPost.class)
-    @Email
+    @Email(groups = UserView.RegistrationPost.class)
     @JsonView(UserView.RegistrationPost.class)
     private String email;
 
     @NotBlank(groups = {UserView.RegistrationPost.class, UserView.PasswordPut.class})
-    @Size(min=6, max=20)
+    @Size(min=6, max=20, groups = {UserView.RegistrationPost.class, UserView.PasswordPut.class})
     @JsonView({UserView.RegistrationPost.class, UserView.PasswordPut.class})
     private String password;
 
     @NotBlank(groups = UserView.PasswordPut.class)
-    @Size(min=6, max=20)
+    @Size(min=6, max=20, groups = UserView.PasswordPut.class)
     @JsonView(UserView.PasswordPut.class)
     private String oldPassword;
 
