@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,7 +18,8 @@ import java.util.UUID;
 @Entity //anotação para definir que vai ser uma entidade JPA
 @Table(name = "TB_USERS")  //anotação para informar o nome da tabela que vai ser criada no banco de dados
 //ao implementar a classe Serializable ela vai fazer a conversao de objetos java para uma sequencia de bytes que podem ser salvos no banco de dados
-public class UserModel implements Serializable {
+//Ao extends RepresentationModel<UserModel>, podemos criar os links, construir esses links para aparecer quando as ações forem feitas
+public class UserModel extends RepresentationModel<UserModel> implements Serializable {
 
     /*é como se fosse um número de controle de versionamento dessas conversões feitas pela JVM,
     a JVM vai utilizar desse número para fazer o controle e fazer a comparação para saber se aqueles números convertidos são realmente dessa classe
