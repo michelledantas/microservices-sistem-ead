@@ -28,10 +28,6 @@ public class AuthenticationController {
     public ResponseEntity<Object> registerUser(@RequestBody  @Validated(UserDto.UserView.RegistrationPost.class)
                                                    @JsonView(UserDto.UserView.RegistrationPost.class) UserDto userDto){
 
-        //Ao incluir essa anotação @JsonView(UserDto.UserView.RegistrationPost.class, ele vai olhar apenas para essa visão de RegistrationPost
-
-
-
         if(userService.existsByUserName(userDto.getUsername())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Username is Already Taken!");
         }
@@ -39,12 +35,8 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Email is Already Taken!");
         }
 
-        /*Precisamos converter UserDto em UserModel, pra isso vamos utilizar do bin utils
-        mas antes disso preciso criar uma instancia do user model
-        novo scopo que veio com o JDK 11 onde não preciso colocar o tipo dessa instância, dessa forma ele já identifica automaticamente
-        só posso utilizar essa forma se estiver dentro do scopo do método, sempre usar em escopo fechado*/
         var userModel = new UserModel();
-        //nesse método eu converso o UserDto em UserModel
+
         BeanUtils.copyProperties(userDto, userModel);
         userModel.setUserStatus(UserStatus.ACTIVE);
         userModel.setUserType(UserType.STUDENT);

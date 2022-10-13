@@ -38,11 +38,7 @@
 			<optional>true</optional>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/net.kaczmarzyk/specification-arg-resolver -->
-		<!-- é um conjunto de ferramentas que vai utilizar dos paramentros, onde vamos passar na solicitacao
-		e vamos fazer essa conversao para tipagens primitivas do Java
 
-		é muito importante colocar specification em apis para que os clientes que forem consumir dessa API,
-		 ele consiga utilizar de filtros e realmente solicitar aquilo que ele deseja-->
 		<dependency>
 			<groupId>net.kaczmarzyk</groupId>
 			<artifactId>specification-arg-resolver</artifactId>

@@ -15,9 +15,6 @@ import javax.validation.constraints.Size;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
 
-    //Essa interface foi criada para evitar ficar criando um DTO para cada tipo de ação que iremos fazer
-    // Em cada uma das interfaces de acordo com os dados vão ser visualizados em cada uma delas
-    //Exemplo no método para atualizar o usuário ele vai olhar para todos os campos que estiver com a anotação do JsonView com o método UserPut
     public interface UserView {
         interface RegistrationPost{}
         interface UserPut{}
@@ -26,12 +23,10 @@ public class UserDto {
 
     }
 
-    //dentro de groups, colocamos em quais visões do Json view que iremos fazer as validações
-    @NotBlank(groups = UserView.RegistrationPost.class) //não permite valores nulos e tbm não permite valores vazios
-    //essa anotação serve para informar qual tipo de visão terá o atributo
-    @Size(min=4, max=50, groups = UserView.RegistrationPost.class) //validação com relação ao tamanho de caracteres
+    @NotBlank(groups = UserView.RegistrationPost.class)
+    @Size(min=4, max=50, groups = UserView.RegistrationPost.class)
     @UsernameConstraint(groups = UserView.RegistrationPost.class)
-    @JsonView(UserView.RegistrationPost.class) // neste caso esse campo não pode ser alterado, por isso a visão fica disponível apenas no momento do cadastro
+    @JsonView(UserView.RegistrationPost.class)
     private String username;
 
     @NotBlank(groups = UserView.RegistrationPost.class)

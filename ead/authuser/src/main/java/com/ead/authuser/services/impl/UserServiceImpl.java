@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Service // mostra para o spring framework que esta classe vai ser um bin que ele vai gerenciar
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserModel> findAll(Specification<UserModel> spec, Pageable pageable) { //passando o specification dentro do método
-        return userRepository.findAll(spec, pageable); //passando o specification dentro do método
+    public Page<UserModel> findAll(Specification<UserModel> spec, Pageable pageable) {
+        return userRepository.findAll(spec, pageable);
     }
 
 

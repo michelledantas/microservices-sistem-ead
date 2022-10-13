@@ -23,35 +23,27 @@ import java.util.UUID;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-@RestController //Para o spring entender que esse é um bin que ele vai gerenciar
-@CrossOrigin(origins = "*", maxAge = 3600) //Precisamos permitir que esse endPoint seja acessado de qualquer lugar e com isso. O * significa que permitimos o acesso de todas as origens. MaxAge é a quantidade de segundos que iremos permitir. Essa configuração está a nível de classe, porém se eu precisar fazer essa configuração para um método em específico para limitar o acesso é perfeitamente possível
-@RequestMapping ("/users")//é a nossa URI, precisa ser um recurso bem definido para garantir o nível de maturidade do Richardson Maturity Model, para tornar essa API Restfull
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping ("/users")
 public class UserController {
 
     @Autowired
     UserService userService;
 
 
-    //Vamos fazer a implementação do hateos dentro do método getAllUsers,
-    // como boas práticas o recomendavel é que o primeiro link a ser criado é para mostrar o caminho de cada um dos recursos próprios
     @GetMapping
-    public ResponseEntity<Page<UserModel>> getAllUsers(SpecificationTemplate.UserSpec spec, //precisamos receber o Specification dentro do método para funcionar
+    public ResponseEntity<Page<UserModel>> getAllUsers(SpecificationTemplate.UserSpec spec,
                                             @PageableDefault(page = 0, size = 10, sort = "userId", direction = Sort.Direction.ASC)
                                                        Pageable pageable){
 
-        Page<UserModel> userModelPage = userService.findAll(spec, pageable); //também é preciso definir no método o specification
+        Page<UserModel> userModelPage = userService.findAll(spec, pageable);
 
-        //se a lista tiver vazia, então não é preciso retornar nada
+
         if(!userModelPage.isEmpty()){
-            //cada um desses recursos são userModel, extraio a listagem de paginação, então assim eu consigo acessar cada um dos elementos dessa lista
+
             for(UserModel userModel : userModelPage.toList()) {
-                //construindo link (navegação para este recurso)
-                //usei o método do RepresentationModel, por isso consegui acessar o add
-                //linkTo do Hateos
-                //dentro do linkTo eu preciso definir o método, pra isso eu preciso passar qual é o controller que está esse método
-                //e qual é este método, no caso é getOneUser
-                //e eu precisei passar o id, já que esse método eu recebo um parametro na uri
-                //withSelfRel ele qualifica qual é a relação desse link com esse recurso, no caso é um link para o próprio recurso, por isso SelfRel
+
                 userModel.add(linkTo(methodOn(UserController.class).getOneUser(userModel.getUserId())).withSelfRel());
             }
         }
@@ -61,7 +53,7 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<Object> getOneUser(@PathVariable(value = "userId")UUID userId){
         Optional<UserModel> userModelOptional = userService.findById(userId);
-        if (!userModelOptional.isPresent()){ //se o objeto não tiver presente, ou seja, se ele vier vazio
+        if (!userModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(userModelOptional.get());
@@ -78,7 +70,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body("User deleted successfully.");
         }
     }
-
 
     @PutMapping("/{userId}")
     public ResponseEntity<Object> updateUser (@PathVariable (value = "userId") UUID userId,
@@ -108,9 +99,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         }
 
-        //se a senha que está salva no banco, se é igual a senha old passowrd que o cliente está passando, porém como temos a negação
-        //fica se a senha que o cliente está passando não for igual a senha velha que está salva no banco
-        //então preciso informar que é incompatível
         if(!userModelOptional.get().getPassword().equals(userDto.getOldPassword())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Mismatched old passoword");
         }
@@ -144,8 +132,4 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(userModel);
         }
     }
-
-
-
-
 }
