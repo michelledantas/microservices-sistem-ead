@@ -8,10 +8,17 @@ spring:
     password: pgadmin
   jpa:
     hibernate:
+      #sempre que criar uma nova tabela, uma nova coluna ele já vai refletir no banco de dados
       ddl-auto: update
       dialect: org.hibernete.dialect.PostgreSQLDialect
+
+      #desabilitar a consulta a metadados que o hibernate busca do banco de dados sempre que começa a inicialização
+      #para evitar alguns conflitos que são exibidos por meio de logs de erros
       jdbc:
         lob.non-contextual-creation: true
+
+    #sempre que executar comandos no banco de dados como transações (select, update, delete, entre outros)
+    #eu quero que isso apareça no log da minha aplicação
     properties:
       hibernate:
         show_sql: true
